@@ -6,10 +6,20 @@
 }
 
 .btn{
-    -fx-background-color: #65D1C0;
+    -fx-background-color: #48596d;
     -fx-text-fill: #ffffff;
     -fx-background-radius: 0 25 25 0;
     -fx-border-radius: 25;
+}
+
+.selectedButton{
+    -jfx-button-type: RAISED;
+    -fx-background-color: #65D1C0;
+}
+
+.deselectedButton{
+    -jfx-button-type: FLAT;
+    -fx-background-color: #48596d;
 }
 
 .btn1{
@@ -17,7 +27,17 @@
     -fx-text-fill: #ffffff;
     -fx-background-radius: 25 0 0 25;
     -fx-border-radius: 25;
+
 }
+
+.focus{
+    -jfx-button-type: RAISED;
+    -fx-background-color: #65D1C0;
+}
+
+.focusText{
+    -fx-text-fill: rgba(255,255,255,1);
+    }
 
 .LogInBtn{
     -fx-background-color: #65D1C0;
@@ -42,7 +62,8 @@
 }
 
 .topbar{
-    -fx-background-color: #43636E;
+    -fx-background-color: #5c79a3;
+    -fx-background-radius: 25 25 0 0;
 }
 
 .closeButton{
@@ -65,4 +86,12 @@
     -fx-underline: true;
     -fx-underline-fill: #35465D;
     -fx-border-width: 0 0 1 0;
+}
+
+.chart{
+    -fx-background-color: #35465D;
+    -fx-text-fill: #ffffff;
+}
+.chart-plot-background{
+    -fx-background-color: transparent;
 }
