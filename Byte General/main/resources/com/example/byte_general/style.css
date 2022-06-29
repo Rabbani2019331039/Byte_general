@@ -1,0 +1,97 @@
+
+
+.root{
+    -fx-background-color: transparent;
+    -fx-background-raidus: 15;
+}
+
+.btn{
+    -fx-background-color: #48596d;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 0 25 25 0;
+    -fx-border-radius: 25;
+}
+
+.selectedButton{
+    -jfx-button-type: RAISED;
+    -fx-background-color: #65D1C0;
+}
+
+.deselectedButton{
+    -jfx-button-type: FLAT;
+    -fx-background-color: #48596d;
+}
+
+.btn1{
+    -fx-background-color: #48596d;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 25 0 0 25;
+    -fx-border-radius: 25;
+
+}
+
+.focus{
+    -jfx-button-type: RAISED;
+    -fx-background-color: #65D1C0;
+}
+
+.focusText{
+    -fx-text-fill: rgba(255,255,255,1);
+    }
+
+.LogInBtn{
+    -fx-background-color: #65D1C0;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+}
+
+.rgtPane{
+    -fx-background-color:  #35465D;
+    -fx-background-radius: 0 15 15 0;
+}
+
+.lftPane{
+    -fx-background-color: #65D1C0;
+    -fx-background-radius: 15 0 0 15;
+}
+
+.logo{
+    -fx-font-family: 'Gugi', cursive;
+    -fx-font-fill: #ffffff;
+}
+
+.topbar{
+    -fx-background-color: #5c79a3;
+    -fx-background-radius: 25 25 0 0;
+}
+
+.closeButton{
+    -fx-background-image: url(cross.png);
+    -fx-background-size: cover, auto;
+}
+
+.jfx-button {
+    -jfx-disable-visual-focus: true;
+}
+
+.text-field {
+  -fx-border-color: grey;
+  -fx-border-width: 0 0 1 0; // top, right, bottom, left
+  -fx-background-color: transparent;
+  -fx-text-fill: #ffffff;
+}
+
+.underline{
+    -fx-underline: true;
+    -fx-underline-fill: #35465D;
+    -fx-border-width: 0 0 1 0;
+}
+
+.chart{
+    -fx-background-color: #35465D;
+    -fx-text-fill: #ffffff;
+}
+.chart-plot-background{
+    -fx-background-color: transparent;
+}
