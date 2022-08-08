@@ -95,3 +95,7 @@
 .chart-plot-background{
     -fx-background-color: transparent;
 }
+
+.transparent{
+    -fx-background-color: transparent;
+}

@@ -6,7 +6,6 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -57,7 +56,6 @@
                            <image>
                               <Image url="@XD.jpg" />
                            </image></ImageView>
-                        <Label layoutX="22.0" layoutY="98.0" prefHeight="17.0" prefWidth="84.0" text="username" />
                      </children>
                   </Pane>
                   <JFXButton fx:id="profileButton" prefHeight="42.0" prefWidth="129.0" text="Profile">
@@ -65,24 +63,24 @@
                         <Font name="Anton Regular" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="adminButton" layoutX="20.0" layoutY="140.0" prefHeight="42.0" prefWidth="142.0" text="Admin">
+                  <JFXButton fx:id="adminButton" layoutX="20.0" layoutY="140.0" onAction="#showAdmin" prefHeight="42.0" prefWidth="142.0" text="Admin">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="Anton Regular" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="practiceButton" layoutX="20.0" layoutY="167.0" prefHeight="42.0" prefWidth="142.0" text="Practice">
+                  <JFXButton fx:id="settingsButton" layoutX="20.0" layoutY="193.0" onAction="#showSettings" prefHeight="42.0" prefWidth="142.0" text="Settings">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="Anton Regular" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="settingsButton" layoutX="20.0" layoutY="193.0" prefHeight="42.0" prefWidth="142.0" text="Settings">
+                  <JFXButton fx:id="practiceButton" onAction="#showPractice" prefHeight="42.0" prefWidth="142.0" text="Practice">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="Anton Regular" size="15.0" />
                      </font>
                   </JFXButton>
                   <JFXButton fx:id="logoutButton" layoutX="20.0" layoutY="220.0" onAction="#logout" prefHeight="42.0" prefWidth="129.0" text="Log Out">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="Anton Regular" size="15.0" />
                      </font>
                   </JFXButton>
                </children>
@@ -94,12 +92,12 @@
                <children>
                   <HBox prefHeight="30.0" prefWidth="450.0">
                      <children>
-                        <JFXButton fx:id="atcOjButton" prefHeight="39.0" prefWidth="116.0" text="AtCoder" textFill="WHITE">
+                        <JFXButton fx:id="allOjButton" prefHeight="42.0" prefWidth="116.0" text="All" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="allOjButton" prefHeight="42.0" prefWidth="116.0" text="All" textFill="WHITE">
+                        <JFXButton fx:id="atcOjButton" prefHeight="39.0" prefWidth="116.0" text="AtCoder" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
