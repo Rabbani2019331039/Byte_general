@@ -59,6 +59,22 @@ public class ProfileController extends BaseController{
     }
 
     @FXML
+    private void showSettings(){
+        viewFactory.closeWindow(ProfileController.class);
+        viewFactory.showSettingWindow();
+    }
+
+    @FXML
+    void showAdmin() {
+
+    }
+
+    @FXML
+    void showPractice() {
+
+    }
+
+    @FXML
     void closeProgram() {
         viewFactory.closeWindow(ProfileController.class);
     }

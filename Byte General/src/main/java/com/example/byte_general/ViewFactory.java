@@ -17,7 +17,7 @@ public class ViewFactory {
 
     private boolean isWindowOpenedBefore(Class<?> controllerClass){
         if(windows.containsKey(controllerClass)){
-            windows.get(controllerClass).show();
+//            windows.get(controllerClass).show();
             return true;
         }
         return false;
@@ -74,6 +74,17 @@ public class ViewFactory {
             windows.get(ProfileController.class).show();
         }
     }
+
+    public void showSettingWindow(){
+        if(!isWindowOpenedBefore(SettingsController.class)){
+            SettingsController controller = new SettingsController(this, "settingsView.fxml");
+            initWindow("settingsView.fxml", controller);
+        }
+        else{
+            windows.get(SettingsController.class).show();
+        }
+    }
+
 
     public void closeWindow(Class<?> controllerClass){
         windows.get(controllerClass).close();

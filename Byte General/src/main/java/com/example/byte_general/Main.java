@@ -14,33 +14,9 @@ public class Main extends Application {
     public static ViewFactory viewFactory;
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LogInView.fxml"));
-//        StartWindowController controller = new StartWindowController();
-//        fxmlLoader.setController(controller);
-//        controller.setStage(stage);
-//
-//
-//        Scene scene = new Scene(fxmlLoader.load());
-//
-//        scene.setFill(Color.TRANSPARENT);
-//        stage.initStyle(StageStyle.TRANSPARENT);
-//
-//
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        controller.init();
-//
-//        stage.show();
 
-//        BaseController startWindowController = new StartWindowController();
-//        ViewFactory view = new ViewFactory();
-//        view.initWindow("start-window.fxml", startWindowController);
-//        view.showWindow();
         Main.viewFactory = new ViewFactory();
         Main.viewFactory.showStartWindow();
-
-
-
 
     }
 

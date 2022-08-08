@@ -1,17 +1,22 @@
 package com.example.byte_general;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import com.jfoenix.controls.JFXButton;
+import javafx.stage.Window;
 import org.w3c.dom.events.MouseEvent;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class StartWindowController extends BaseController{
@@ -49,6 +54,7 @@ public class StartWindowController extends BaseController{
     @FXML
     private TextField username;
 
+
     public StartWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
     }
@@ -62,32 +68,15 @@ public class StartWindowController extends BaseController{
         this.stage = stage;
     }
 
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//    public void initialize(){
+//        Scene scene = this.stage.getScene();
 //
-//        topbar.setOnMousePressed(mouseEvent -> {
-//            x = mouseEvent.getSceneX();
-//            y = mouseEvent.getSceneY();
-//        });
-//
-//        topbar.setOnMouseDragged(mouseEvent -> {
-//            stage.setX(mouseEvent.getScreenX() - x);
-//            stage.setY(mouseEvent.getScreenY() - y);
-//        });
 //    }
 
     public boolean isSignIn = true;
     @FXML
     void changeToSignIn() {
         if(!isSignIn) {
-//            signInText.getStyleClass().add("focusText");
-//            signInText.getStyleClass().add("underline");
-//
-//            signUpText.getStyleClass().remove("focusText");
-//            signUpText.getStyleClass().remove("underline");
-//
-//            toggleSignIn.getStyleClass().add("focus");
-//            toggleSignUp.getStyleClass().remove("focus");
 
             FXMLLoader signInLoader = new FXMLLoader(getClass().getResource("signinComponent.fxml"));
             signInLoader.setController(this);
@@ -105,15 +94,6 @@ public class StartWindowController extends BaseController{
     @FXML
     void changeToSignUp() {
         if(isSignIn) {
-//            signUpText.getStyleClass().add("focusText");
-//            signUpText.getStyleClass().add("underline");
-//
-//            signInText.getStyleClass().remove("focusText");
-//            signInText.getStyleClass().remove("underline");
-//
-//            toggleSignUp.getStyleClass().add("focus");
-//            toggleSignIn.getStyleClass().remove("focus");
-
             rightBar.getChildren().remove(rightBar.getChildren().get(rightBar.getChildren().size() - 1));
             try {
                 FXMLLoader signUpLoader = new FXMLLoader(getClass().getResource("signupComponent.fxml"));
@@ -129,7 +109,10 @@ public class StartWindowController extends BaseController{
 
     @FXML
     public void login() {
-        if(Authenticator.authenticate(username.getText(), password.getText())) {
+        Authenticator authenticator = new Authenticator();
+        if(authenticator.authenticate(username.getText(), password.getText())) {
+            username.clear();
+            password.clear();
             viewFactory.showProfileWindow();
             viewFactory.closeWindow(StartWindowController.class);
         }
