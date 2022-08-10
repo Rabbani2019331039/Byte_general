@@ -25,4 +25,29 @@ public class Authenticator {
         return false;
     }
 
+    public void authenticateNewUser(String username, String password, String email){
+        String query  = "SELECT * FROM users WHERE username = ?";
+        try {
+            PreparedStatement ps = loginHandler.getConnection().prepareStatement(query);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.isBeforeFirst()){
+                System.out.println("user already exist");
+            }
+            else{
+                query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+                ps = loginHandler.getConnection().prepareStatement(query);
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ps.setString(3, email);
+
+                ps.executeUpdate();
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

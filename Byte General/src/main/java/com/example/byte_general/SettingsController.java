@@ -7,13 +7,19 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.w3c.dom.Text;
 
 import java.io.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class SettingsController extends BaseController {
 
@@ -65,14 +71,60 @@ public class SettingsController extends BaseController {
     @FXML
     private TextField username;
 
+    private String checkPassword;
+
+
+    private DBHandler dbHandler= new DBHandler();
     public SettingsController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
     }
 
     public void init() {
         super.init();
+        LoggedInUser loggedInUser = LoggedInUser.getInstance();
+        setInfo(loggedInUser.getUsername());
         profileImage = ImageUtilities.clipCircleImage(profileImage);
         settingsProfileImage = ImageUtilities.clipCircleImage(settingsProfileImage);
+
+    }
+
+    private void setInfo(String username){
+        String query  = "SELECT * FROM users WHERE username = ?";
+
+        try{
+            PreparedStatement ps = dbHandler.getConnection().prepareStatement(query);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                setUsername(rs.getString("username"));
+                setEmail(rs.getString("email"));
+                checkPassword = rs.getString("password");
+                cfhandles.add(rs.getString("CFHandle1"));
+                cfhandles.add(rs.getString("CFHandle2"));
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        setOptionCF();
+    }
+
+    public void setEmail(String emailText) {
+        this.email.setText(emailText);
+    }
+
+    public void setProfileImage(ImageView profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public void setSettingsProfileImage(ImageView settingsProfileImage) {
+        this.settingsProfileImage = settingsProfileImage;
+    }
+
+    public void setUsername(String usernameText) {
+        this.username.setText(usernameText);
     }
 
     @FXML
@@ -83,7 +135,8 @@ public class SettingsController extends BaseController {
 
     @FXML
     void showAdmin() {
-
+        viewFactory.closeWindow(SettingsController.class);
+        viewFactory.showAdminWindow();
     }
 
     @FXML
@@ -91,30 +144,75 @@ public class SettingsController extends BaseController {
 
     }
 
+    @FXML
+    private void saveChanges()  {
+        try {
+            String query = "UPDATE users SET email = ?, CFHandle1 = ?, CFHandle2 = ?  WHERE username =?";
+            PreparedStatement ps = dbHandler.getConnection().prepareStatement(query);
+            ps.setString(1, email.getText());
+
+            HBox hbox = (HBox) (handlesDrawerCF.getChildren().get(0));
+            TextField tf = (TextField) hbox.getChildren().get(0);
+            ps.setString(2, tf.getText());
+
+            hbox = (HBox) (handlesDrawerCF.getChildren().get(1));
+            tf = (TextField) hbox.getChildren().get(0);
+            ps.setString(3, tf.getText());
+
+            ps.setString(4, username.getText());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(oldPassword.getText().equals(checkPassword)){
+            if(!newPassword.getText().equals("")){
+                try {
+                    String query = "UPDATE users SET password = ?  WHERE username =?";
+                    PreparedStatement ps = dbHandler.getConnection().prepareStatement(query);
+                    ps.setString(1, newPassword.getText());
+                    ps.setString(2, username.getText());
+
+                    ps.executeUpdate();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
     int cfIndex = 6;
     int cfHandleCount = 0;
     int atcIndex = 7;
     int atcHandleCount = 0;
+    private List<String> cfhandles = new ArrayList<>();
+
 
     ArrayList<VBox> handlesCF = new ArrayList<VBox>();
     @FXML
     void giveOptionCF() {
-
         try{
             HandlesController controller = new HandlesController();
             FXMLLoader multipleCFComponent = new FXMLLoader(getClass().getResource("handleOptionsComponent.fxml"));
             multipleCFComponent.setController(controller);
             controller.setParent(handlesDrawerCF);
 
-//            handlesCF.add(multipleCFComponent.load());
-
-//            handlesCF.get(handlesCF.size()-1).getChildren().get(0);
             Node comp = multipleCFComponent.load();
             controller.setMe(comp);
             handlesDrawerCF.getChildren().add(comp);
             cfHandleCount++;
         }catch(Exception e){
             e.printStackTrace();
+        }
+    }
+
+    void setOptionCF(){
+        for(int i=0;i<2;i++){
+            giveOptionCF();
+            HBox hbox = (HBox) handlesDrawerCF.getChildren().get(i);
+            TextField tf  = (TextField) hbox.getChildren().get(0);
+            tf.setText(cfhandles.get(i));
         }
     }
 

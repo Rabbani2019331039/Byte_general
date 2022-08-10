@@ -18,6 +18,7 @@ public class Main extends Application {
         Main.viewFactory = new ViewFactory();
         Main.viewFactory.showStartWindow();
 
+//        Main.viewFactory.showProfileWindow();
     }
 
     public static void main(String[] args) {

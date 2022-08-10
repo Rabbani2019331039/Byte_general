@@ -1,23 +1,12 @@
 package com.example.byte_general;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import com.jfoenix.controls.JFXButton;
-import javafx.stage.Window;
-import org.w3c.dom.events.MouseEvent;
-
-import java.net.URL;
-import java.sql.Connection;
-import java.util.ResourceBundle;
 
 public class StartWindowController extends BaseController{
 
@@ -40,6 +29,9 @@ public class StartWindowController extends BaseController{
     private JFXButton signIn;
 
     @FXML
+    private JFXButton signUp;
+
+    @FXML
     private Label signInText;
 
     @FXML
@@ -53,6 +45,15 @@ public class StartWindowController extends BaseController{
 
     @FXML
     private TextField username;
+
+    @FXML
+    private TextField signUpUsername;
+
+    @FXML
+    private TextField signUpEmail;
+
+    @FXML
+    private PasswordField signUpPassword;
 
 
     public StartWindowController(ViewFactory viewFactory, String fxmlName) {
@@ -68,10 +69,6 @@ public class StartWindowController extends BaseController{
         this.stage = stage;
     }
 
-//    public void initialize(){
-//        Scene scene = this.stage.getScene();
-//
-//    }
 
     public boolean isSignIn = true;
     @FXML
@@ -111,9 +108,11 @@ public class StartWindowController extends BaseController{
     public void login() {
         Authenticator authenticator = new Authenticator();
         if(authenticator.authenticate(username.getText(), password.getText())) {
+            viewFactory.showProfileWindow();
+            LoggedInUser loggedInUser = LoggedInUser.getInstance();
+            loggedInUser.setUsername(username.getText());
             username.clear();
             password.clear();
-            viewFactory.showProfileWindow();
             viewFactory.closeWindow(StartWindowController.class);
         }
         else {
@@ -122,9 +121,26 @@ public class StartWindowController extends BaseController{
             alert.setHeaderText("Login failed");
             alert.setContentText("Username or password is incorrect");
             alert.showAndWait();
+        }
 
+
+    }
+
+    @FXML
+    void signup() {
+        Authenticator authenticator = new Authenticator();
+        if(authenticator.authenticate(signUpUsername.getText(), signUpPassword.getText())){
+            System.out.println("account already exist");
+        }
+        else{
+            authenticator.authenticateNewUser(signUpUsername.getText(), signUpPassword.getText(), signUpEmail.getText());
+            LoggedInUser loggedInUser = LoggedInUser.getInstance();
+            loggedInUser.setUsername(username.getText());
+            viewFactory.showSettingWindow();
+            viewFactory.closeWindow(StartWindowController.class);
         }
     }
+
 
 
 

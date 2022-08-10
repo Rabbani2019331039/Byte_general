@@ -17,7 +17,6 @@ public class ViewFactory {
 
     private boolean isWindowOpenedBefore(Class<?> controllerClass){
         if(windows.containsKey(controllerClass)){
-//            windows.get(controllerClass).show();
             return true;
         }
         return false;
@@ -82,6 +81,16 @@ public class ViewFactory {
         }
         else{
             windows.get(SettingsController.class).show();
+        }
+    }
+
+    public void showAdminWindow(){
+        if(!isWindowOpenedBefore(AdminController.class)){
+            AdminController controller = new AdminController(this, "adminView.fxml");
+            initWindow("adminView.fxml", controller);
+        }
+        else{
+            windows.get(AdminController.class).show();
         }
     }
 
